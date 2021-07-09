@@ -18,7 +18,7 @@ function devServer() {
         }
     });
 
-    watch('src/*', { usePolling: true }, build);
+    watch('src/**/*.js', build);
 }
 
 module.exports = {
