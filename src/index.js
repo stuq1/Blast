@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import {preloadTextures, textures} from "./core/texturesManager";
 
 let camera, scene, renderer;
 let geometry, material, mesh;
@@ -7,6 +8,7 @@ const canvas = document.getElementById("canvas");
 
 function init() {
     console.log("Init");
+    preloadTextures(textures);
 
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
