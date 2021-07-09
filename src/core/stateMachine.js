@@ -1,4 +1,4 @@
-class State {
+export class State {
 
     constructor (stateMachine) {
         this.stateMachine = stateMachine;
@@ -18,7 +18,7 @@ class State {
 
 }
 
-class StateMachine {
+export class StateMachine {
 
     constructor () {
         this._possibleStates = [];

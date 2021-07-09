@@ -11,15 +11,29 @@ export const textures = {
 
 const textureCache = new Map();
 
-export function preloadTextures(textures) {
+export async function preloadTextures(textures) {
+    const loadPromise = new Promise(function (resolve, reject) {
+        try {
+            const textureLoader = new THREE.TextureLoader();
+            let isLoadingCounter = 0;
+            let maxLoadingCount = Object.entries(textures).length;
+            for (const [_, textureName] of Object.entries(textures)) {
+                textureCache.set(textureName, textureLoader.load(textureName, () => {
+                    console.log(`Texture "${textureName}" is load`);
+                    isLoadingCounter++;
+                    if (isLoadingCounter >= maxLoadingCount) {
+                        resolve();
+                    }
+                }));
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+
     console.log("Preload textures start");
 
-    const textureLoader = new THREE.TextureLoader();
-    for (const [_, textureName] of Object.entries(textures)) {
-        textureCache.set(textureName, textureLoader.load(textureName, () => {
-            console.log(`Texture "${textureName}" is load`);
-        }));
-    }
+    await loadPromise;
 
     console.log("Preload textures end");
 }
