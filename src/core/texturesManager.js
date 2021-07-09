@@ -7,6 +7,8 @@ export const textures = {
     ITEM_PURPLE: "/assets/images/item_purple.png",
     ITEM_RED: "/assets/images/item_red.png",
     ITEM_YELLOW: "/assets/images/item_yellow.png",
+    MODE_1_BUTTON: "/assets/images/button_mode_1.png",
+    MODE_2_BUTTON: "/assets/images/button_mode_2.png"
 }
 
 const textureCache = new Map();

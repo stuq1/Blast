@@ -8,8 +8,11 @@ export class BlastViewController extends BaseViewController {
         super(renderer);
 
         this.preloadViewState = this.addPossibleState(PreloadViewState);
-        this.menuViewState = this.addPossibleState(MenuViewState);
         this.setCurrentState(this.preloadViewState);
+    }
+
+    addOthersStates() {
+        this.menuViewState = this.addPossibleState(MenuViewState);
     }
 
 }

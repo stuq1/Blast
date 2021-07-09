@@ -2,9 +2,9 @@ import {StateMachine} from "./stateMachine";
 
 export class BaseViewController extends StateMachine {
 
-    constructor(renderer) {
+    constructor(context) {
         super();
-        this.renderer = renderer;
+        this.context = context;
     }
 
 }

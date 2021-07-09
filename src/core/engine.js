@@ -1,6 +1,11 @@
 import * as THREE from "three";
 
-let camera, scene, renderer;
+let context = {
+    camera: null,
+    scene: null,
+    renderer: null
+};
+let viewController;
 let geometry, material, mesh;
 
 export function engineInit(domElementId, viewControllerClass) {
@@ -12,29 +17,25 @@ export function engineInit(domElementId, viewControllerClass) {
     const height = canvas.clientHeight;
     const aspect = width/height;
 
-    camera = new THREE.OrthographicCamera(-5*aspect, 5*aspect, 5, -5, 0.01, 2000);
-    camera.position.z = 1;
+    context.camera = new THREE.OrthographicCamera(-5*aspect, 5*aspect, 5, -5, 0.01, 2000);
+    context.camera.position.z = 1;
 
-    scene = new THREE.Scene();
+    context.scene = new THREE.Scene();
 
-    geometry = new THREE.BoxGeometry(1, 1, 1);
-
-    material = new THREE.MeshBasicMaterial({
-        color: new THREE.Color(0, 255, 0)
+    context.renderer = new THREE.WebGLRenderer({
+        antialias: true
     });
+    context.renderer.setSize(width, height);
+    context.renderer.setAnimationLoop(animation);
 
-    mesh = new THREE.Mesh(geometry, material);
+    canvas.appendChild(context.renderer.domElement);
 
-    scene.add(mesh);
-
-    renderer = new THREE.WebGLRenderer();
-    renderer.setSize(width, height);
-    renderer.setAnimationLoop(animation);
-
-    canvas.appendChild(renderer.domElement);
-    const viewController = new viewControllerClass(renderer);
+    viewController = new viewControllerClass(context);
 }
 
 function animation(time) {
-    renderer.render(scene, camera);
+    viewController.onEvent({
+        eventType: "animation"
+    });
+    context.renderer.render(context.scene, context.camera);
 }
