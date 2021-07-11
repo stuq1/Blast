@@ -6,7 +6,8 @@ let context = {
     renderer: null
 };
 let viewController;
-let geometry, material, mesh;
+let raycaster;
+let mouse = new THREE.Vector2();
 
 export function engineInit(domElementId, viewControllerClass) {
     console.log("Init");
@@ -18,7 +19,7 @@ export function engineInit(domElementId, viewControllerClass) {
     const aspect = width/height;
 
     context.camera = new THREE.OrthographicCamera(-5*aspect, 5*aspect, 5, -5, 0.01, 2000);
-    context.camera.position.z = 1;
+    context.camera.position.z = 1000;
 
     context.scene = new THREE.Scene();
 
@@ -28,6 +29,20 @@ export function engineInit(domElementId, viewControllerClass) {
     context.renderer.setSize(width, height);
     context.renderer.setAnimationLoop(animation);
 
+    raycaster = new THREE.Raycaster();
+
+    canvas.onclick = (event) => {
+        mouse.x =  (event.offsetX / width) * 2 - 1;
+        mouse.y = -(event.offsetY / height)* 2 + 1;
+
+        raycaster.setFromCamera(mouse, context.camera);
+        const intersects = raycaster.intersectObjects([context.scene], true);
+        if (intersects.length > 0) {
+            const object = intersects[0].object;
+            console.log(object);
+        }
+    }
+
     canvas.appendChild(context.renderer.domElement);
 
     viewController = new viewControllerClass(context);
@@ -35,7 +50,10 @@ export function engineInit(domElementId, viewControllerClass) {
 
 function animation(time) {
     viewController.onEvent({
-        eventType: "animation"
+        eventType: "animation",
+        data: {
+            time
+        }
     });
     context.renderer.render(context.scene, context.camera);
 }
