@@ -1,6 +1,7 @@
 import {BaseViewController} from "../core/baseViewController";
 import {PreloadViewState} from "./views/preloadViewState";
 import {MenuViewState} from "./views/menuViewState";
+import {BoardViewState} from "./views/boardViewState";
 
 export class BlastViewController extends BaseViewController {
 
@@ -13,6 +14,7 @@ export class BlastViewController extends BaseViewController {
 
     addOthersStates() {
         this.menuViewState = this.addPossibleState(MenuViewState);
+        this.boardViewState = this.addPossibleState(BoardViewState);
     }
 
 }

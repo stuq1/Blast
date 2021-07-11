@@ -49,7 +49,21 @@ export class MenuViewState extends State {
     }
 
     onEvent (event) {
-
+        switch (event.eventType) {
+            case "onclick": {
+                const intersects = event.data.raycaster.intersectObjects([this.group], true);
+                if (intersects.length > 0) {
+                    const object = intersects[0].object;
+                    switch (object.name) {
+                        case "mode_1_button": {
+                            this.stateMachine.setCurrentState(this.stateMachine.boardViewState);
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+        }
     }
 
 }

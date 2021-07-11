@@ -5,18 +5,32 @@ let context = {
     scene: null,
     renderer: null
 };
-let viewController;
 let raycaster;
-let mouse = new THREE.Vector2();
+let width, height, aspect;
+let viewController;
+
+function onClick(event) {
+    const mouse = new THREE.Vector2();
+    mouse.x =  (event.offsetX / width) * 2 - 1;
+    mouse.y = -(event.offsetY / height)* 2 + 1;
+
+    raycaster.setFromCamera(mouse, context.camera);
+    viewController.onEvent({
+        eventType: "onclick",
+        data: {
+            raycaster
+        }
+    });
+}
 
 export function engineInit(domElementId, viewControllerClass) {
     console.log("Init");
 
     const canvas = document.getElementById(domElementId);
 
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    const aspect = width/height;
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
+    aspect = width/height;
 
     context.camera = new THREE.OrthographicCamera(-5*aspect, 5*aspect, 5, -5, 0.01, 2000);
     context.camera.position.z = 1000;
@@ -31,17 +45,7 @@ export function engineInit(domElementId, viewControllerClass) {
 
     raycaster = new THREE.Raycaster();
 
-    canvas.onclick = (event) => {
-        mouse.x =  (event.offsetX / width) * 2 - 1;
-        mouse.y = -(event.offsetY / height)* 2 + 1;
-
-        raycaster.setFromCamera(mouse, context.camera);
-        const intersects = raycaster.intersectObjects([context.scene], true);
-        if (intersects.length > 0) {
-            const object = intersects[0].object;
-            console.log(object);
-        }
-    }
+    canvas.onclick = onClick;
 
     canvas.appendChild(context.renderer.domElement);
 
