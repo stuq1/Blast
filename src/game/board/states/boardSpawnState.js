@@ -9,7 +9,7 @@ export class BoardSpawnState extends State {
     onActivate() {
         super.onActivate();
 
-        this.timeout = 1;
+        this.timeout = 30;
         const board = this.stateMachine;
 
         for (let x = 0; x < board.level.width; x++) {

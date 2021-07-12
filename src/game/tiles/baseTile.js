@@ -34,6 +34,10 @@ export class BaseTile {
         this.mesh.position.set(_posX, -_posY, (_posY+5)*-2);
     }
 
+    get tileType() {
+        return this.__proto__.constructor.name;
+    }
+
     move(gridX, gridY) {
         this.x = gridX;
         this.y = gridY;
