@@ -1,10 +1,10 @@
 import {textures} from "../../core/texturesManager";
 import {BaseColoredTile} from "./baseColoredTile";
 
-export class TileRed extends BaseColoredTile {
+export class TilePurple extends BaseColoredTile {
 
     constructor(size, gridX, gridY) {
-        super(textures.ITEM_RED, size, gridX, gridY);
+        super(textures.ITEM_PURPLE, size, gridX, gridY);
     }
 
 }

@@ -1,5 +1,8 @@
 import {TileRed} from "./tiles/tileRed";
 import {TileBlue} from "./tiles/tileBlue";
+import {TileGreen} from "./tiles/tileGreen";
+import {TilePurple} from "./tiles/tilePurple";
+import {TileYellow} from "./tiles/tileYellow";
 
 export const levels = [
     {
@@ -16,7 +19,7 @@ export const levels = [
         }
     },
     {
-        tiles: [TileRed, TileBlue],
+        tiles: [TileRed, TileBlue, TileGreen, TilePurple, TileYellow],
         width: 10,
         height: 10,
         moves: 15,

@@ -1,10 +1,10 @@
-import {BaseTile} from "./baseTile";
 import {textures} from "../../core/texturesManager";
+import {BaseColoredTile} from "./baseColoredTile";
 
-export class TileBlue extends BaseTile {
+export class TileBlue extends BaseColoredTile {
 
     constructor(size, gridX, gridY) {
-        super(textures.ITEM_BLUE, size, size, 1, 0.89, gridX, gridY);
+        super(textures.ITEM_BLUE, size, gridX, gridY);
     }
 
 }

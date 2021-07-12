@@ -29,6 +29,7 @@ export class BoardMoveState extends State {
 
                     let idCluster = this.tileClustersMap[tile.x][tile.y];
                     let cluster = this.clusters[idCluster];
+                    console.log(cluster);
                     if (cluster.tiles.length > 1) {
                         for (let tile of cluster.tiles) {
                             board.removeTile(board.tiles[tile.x][tile.y]);
