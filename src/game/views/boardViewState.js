@@ -2,6 +2,7 @@ import {State} from "../../core/stateMachine";
 import * as THREE from "three";
 import {getTexture, textures} from "../../core/texturesManager";
 import {Board} from "../board";
+import {levels} from "../levels";
 
 export class BoardViewState extends State {
 
@@ -18,13 +19,12 @@ export class BoardViewState extends State {
         });
         let progress_panel_mesh = new THREE.Mesh(progress_panel_geometry, progress_panel_material);
         progress_panel_mesh.position.y = 4.5;
-        progress_panel_mesh.name = "mode_1_button";
         this.group.add(progress_panel_mesh);
     }
 
     onActivate () {
         console.log("Main menu view activated");
-        this.board = new Board();
+        this.board = new Board(levels[1]);
         this.group.add(this.board.group);
 
         this.stateMachine.context.scene.add(this.group);
@@ -37,22 +37,6 @@ export class BoardViewState extends State {
 
     onEvent (event) {
         this.board.onEvent(event);
-        /*switch (event.eventType) {
-            case "onclick": {
-                const intersects = event.data.raycaster.intersectObjects([this.group], true);
-                if (intersects.length > 0) {
-                    const object = intersects[0].object;
-                    switch (object.name) {
-                        //case "mode_1_button": {
-                        //    this.stateMachine.setCurrentState(this.stateMachine.boardViewState);
-                        //    break;
-                        //}
-                    }
-                }
-                break;
-            }
-        }*/
-
     }
 
 }
